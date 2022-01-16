@@ -1,0 +1,149 @@
+<html>
+<head>
+    <title>WebLab</title>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="assets/images/sharingan.png" type="image/png">
+    <link rel="stylesheet" href="assets/Style.css">
+    <link href="assets/font" rel="stylesheet">
+    <script src="assets/scripts/JS/scriptsJS.js"></script>
+</head>
+<body>
+<div class="heading">
+    <a class="name" href="#">WebLab</a>
+    <a class="student"> Гайдамаков Александр Сергеевич, P3212</a>
+    <div class="info"></div>
+</div>
+<div class="zone_work">
+    <div class="zone_input">
+        <span class="zone_input__heading">Проверка попадания точки в ограниченную область</span>
+        <div class="x_y_z_input__cfg">
+            <div class="x_zone">
+                <div class="x_zone__heading">
+                    Выберете координату X:
+                </div>
+                <div class="x_input">
+                    <button name="x" value="-3">-3</button>
+                    <button name="x" value="-2">-2</button>
+                    <button name="x" value="-1">-1</button>
+                    <button name="x" value="0">0</button>
+                    <button name="x" value="1">1</button>
+                    <button name="x" value="2">2</button>
+                    <button name="x" value="3">3</button>
+                    <button name="x" value="4">4</button>
+                    <button name="x" value="5">5</button>
+                </div>
+            </div>
+            <div class="y_zone">
+                <div class="y_zone__heading">
+                    Введите координату Y:
+                </div>
+                <div class="y_input">
+                    > <input type="text" name="y" placeholder="-3 ... 5">
+                </div>
+            </div>
+            <div class="r_zone">
+                <div class="r_zone__heading">
+                    Выберете параметр R:
+                </div>
+                <div class="r_input">
+                    <input type="radio" name="r" value="1">1
+                    <input type="radio" name="r" value="1.5">1.5
+                    <input type="radio" name="r" value="2">2
+                    <input type="radio" name="r" value="2.5">2.5
+                    <input type="radio" name="r" value=3>3
+                </div>
+            </div>
+        </div>
+
+        <div class="x_y_z_result__cfg">
+            <div class="x_result">
+                x:<input type="text" name="x__result" id="x" value="" disabled/>
+            </div>
+            <div class="y_result">
+                y:<input type="text" name="y__result" id="y" value="" disabled/>
+            </div>
+            <div class="r_result">
+                r:<input type="text" name="r__result" id="r" value="" disabled/>
+            </div>
+        </div>
+        <div class="button__cfg">
+            <button type="button" class="btn submit">отправить</button>
+            <button type="button" class="btn clear">отчистить</button>
+        </div>
+
+        <img class="sharingan" src="assets\images\sharingan.png">
+    </div>
+    <div class="zone_screen">
+        <div class="zone_screen__heading">График</div>
+
+
+        <svg class="zone_coordinates" width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+            <!-- Оси координат -->
+            <line x1="0" x2="400" y1="200" y2="200" stroke="black"></line>
+            <line x1="200" x2="200" y1="0" y2="400" stroke="black"></line>
+            <!-- Стрелки к осям -->
+            <polygon points="200,0 195,15 205,15" stroke="black"></polygon>
+            <polygon points="400,200 385,195 385,205" stroke="black"></polygon>
+            <!-- Подписи к осям -->
+            <text x="385" y="190">X</text>
+            <text x="205" y="15">Y</text>
+            <!-- Метки для значений R на оси X -->
+            <line x1="50" x2="50" y1="195" y2="205" stroke="black"></line>
+            <line x1="125" x2="125" y1="195" y2="205" stroke="black"></line>
+            <line x1="275" x2="275" y1="195" y2="205" stroke="black"></line>
+            <line x1="350" x2="350" y1="195" y2="205" stroke="black"></line>
+            <!-- Метки для значений R на оси Y -->
+            <line x1="195" x2="205" y1="50" y2="50" stroke="black"></line>
+            <line x1="195" x2="205" y1="125" y2="125" stroke="black"></line>
+            <line x1="195" x2="205" y1="275" y2="275" stroke="black"></line>
+            <line x1="195" x2="205" y1="350" y2="350" stroke="black"></line>
+            <!-- Значения R на оси X -->
+            <text x="40" y="190">-R</text>
+            <text x="110" y="190">-R/2</text>
+            <text x="265" y="190">R/2</text>
+            <text x="345" y="190">R</text>
+            <!-- Значения R на оси Y -->
+            <text x="210" y="54.5">R</text>
+            <text x="210" y="129.5">R/2</text>
+            <text x="210" y="278.5">-R/2</text>
+            <text x="210" y="353.5">-R</text>
+            <!-- Прямоугольник в четвертой четверти -->
+            <polygon stroke="red" fill="red" fill-opacity="0.4" points="200,50 200,200 275,200 275,50">
+            </polygon>
+            <!-- Треугольник в третьей четверти -->
+            <polygon stroke="red" fill="red" fill-opacity="0.4" points="200,200 50,200 200,350"></polygon>
+            <!-- Четверть эллипса во второй четверти -->
+            <path stroke="red" fill="red" fill-opacity="0.4" d="M125,200 A70,70 90 0,1 200,125 L 200,200 Z"></path>
+            <circle id="point" r="5" cx="150" cy="150" fill-opacity="1" fill="red" stroke="black"
+                    visibility="hidden"></circle>
+        </svg>
+    </div>
+    <div class="zone_result">
+        <div class="zone_result__heading">Реультат</div>
+        <div class="dataTable">
+            <div class="scroll-table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Result</th>
+                        <th width="20px">X</th>
+                        <th width="20px">Y</th>
+                        <th width="20px">R</th>
+                        <th>ExecuteTime</th>
+                        <th>CurrentTime</th>
+                    </tr>
+                    </thead>
+                </table>
+                <div class="scroll-table-body">
+                    <table>
+                        <tbody id="output">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="assets/scripts/JS/scriptsJS.js"></script>
+</body>
+</html>
