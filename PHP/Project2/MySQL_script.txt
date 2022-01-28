@@ -1,0 +1,10 @@
+CREATE DATABASE project;
+
+USE project;
+
+CREATE TABLE Customers (
+    code_value int,
+    title_value varchar(20),
+    
+    primary key(code_value)
+);
