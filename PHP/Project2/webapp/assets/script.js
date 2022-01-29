@@ -40,7 +40,7 @@ buttonSubmit.addEventListener("click", function () {
                 link.click();
                 document.getElementById("output").innerHTML = "Success";
             }
-            if (status == 400) {
+            if (status == 400 || status = 404) {
                 document.getElementById("output").innerHTML = request.responseText;
                 document.getElementById("output").style.color = "red";
             }
