@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="sample.xhtml">
+
+    <ui:define name="head">
+        <title>WebLab3</title>
+        <link rel="icon" href="#{resource['images:sharingan.png']}"/>
+        <h:outputStylesheet library="styles" name="mainStyle.css"/>
+    </ui:define>
+
+    <ui:define name="main">
+        <h:link styleClass="name" outcome="goWelcome" value="BACK"/>
+
+        <div class="input_zone">
+            <div class="input_zone__header">
+                Проверка попадания точки в ограниченную область
+            </div>
+            <h:form id="hiddenForm" style="display: none">
+                <h:inputText styleClass="pointX" value="#{pointBean.pointFromCanvas.xValue}"/>
+                <h:inputText styleClass="pointY" value="#{pointBean.pointFromCanvas.yValue}"/>
+                <h:inputText styleClass="pointR" value="#{pointBean.pointFromCanvas.rValue}"/>
+                <h:inputHidden type="hidden" id="isFromGraphic"/>
+                <h:commandButton styleClass="submitSvg" action="#{pointBean.addPointFromCanvas()}">
+                    <f:ajax execute="hiddenForm" render="valuesTable"/>
+                </h:commandButton>
+            </h:form>
+            <fieldset class="input">
+                <legend class="x_table">Выберите координату X:</legend>
+                <div class="x_table__div">
+                    <h:commandButton styleClass="x_button" id="x1" type="button" value="-3"/>
+
+                    <h:commandButton styleClass="x_button" id="x2" type="button" value="-2"/>
+
+                    <h:commandButton styleClass="x_button" id="x3" type="button" value="-1"/>
+
+                    <h:commandButton styleClass="x_button" id="x4" type="button" value="0"/>
+
+                    <h:commandButton styleClass="x_button" id="x5" type="button" value="1"/>
+
+                    <h:commandButton styleClass="x_button" id="x6" type="button" value="2"/>
+
+                    <h:commandButton styleClass="x_button" id="x7" type="button" value="3"/>
+
+                    <h:commandButton styleClass="x_button" id="x8" type="button" value="4"/>
+
+                    <h:commandButton styleClass="x_button" id="x9" type="button" value="5"/>
+                </div>
+            </fieldset>
+
+            <fieldset class="input">
+                <legend class="y_table">Введите координату Y:</legend>
+                <div class="y_table__div">
+                    y: <h:inputText styleClass="y_inputText" id="y" name="y"/> ( -3 ... 3 )
+                </div>
+            </fieldset>
+
+            <fieldset class="input">
+                <legend class="r_table">Выберите параметр R:</legend>
+                <div class="r_table__div">
+                    <h:commandButton styleClass="r_button" id="r1" type="button" value="1"/>
+
+                    <h:commandButton styleClass="r_button" id="r2" type="button" value="1.5"/>
+
+                    <h:commandButton styleClass="r_button" id="r3" type="button" value="2"/>
+
+                    <h:commandButton styleClass="r_button" id="r4" type="button" value="2.5"/>
+
+                    <h:commandButton styleClass="r_button" id="r5" type="button" value="3"/>
+                </div>
+            </fieldset>
+            <div class="button__cfg">
+                <button type="button" class="btn submit" id="submit" value="отправить">отправить</button>
+
+                <h:form id="newPointForm">
+                <h:commandButton id = 'clear' styleClass="btn clear" value="отчистить" action="#{pointBean.clear}" onclick="clearFields()">
+                    <f:ajax execute="newPointForm" render="valuesTable"/>
+                </h:commandButton>
+                </h:form>
+            </div>
+            <h:graphicImage styleClass="eyes" url="#{resource['images:eyes.png']}"/>
+
+        </div>
+
+        <div class="screen_zone">
+            <div class="screen_zone__header">
+                График
+            </div>
+
+            <ui:include src="templates/canvas.xhtml"/>
+            <h:outputScript library="scripts" name="canvas.js"/>
+        </div>
+
+
+        <div class="result_zone">
+            <div class="result_zone__header">
+                Реультат
+            </div>
+
+            <div class = 'result-content'>
+                <h:panelGroup id="valuesTable">
+                    <p:dataTable styleClass="result-content-table" value="#{pointBean.pointList}" var="point" scrollable="true"
+                                 scrollHeight="170" scrollWidth="30">
+                        <p:column headerText="X">
+                            <h:outputText value="#{point.xValue}"/>
+                        </p:column>
+                        <p:column headerText="Y">
+                            <h:outputText value="#{point.yValue}"/>
+                        </p:column>
+                        <p:column headerText="R">
+                            <h:outputText value="#{point.rValue}"/>
+                        </p:column>
+                        <p:column headerText="Current time">
+                            <h:outputText value="#{point.currentTime}"/>
+                        </p:column>
+                        <p:column headerText="Execution time">
+                            <h:outputText value="#{point.executionTime}"/>
+                        </p:column>
+                        <p:column headerText="Result">
+                            <h:outputText value="#{point.hitResult}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGroup>
+            </div>
+        </div>
+
+        <h:outputScript library="primefaces" name="jquery/jquery.js"/>
+        <h:outputScript library="scripts" name="mainScript.js"/>
+    </ui:define>
+</ui:composition>
+</html>
