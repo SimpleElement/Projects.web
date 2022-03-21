@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+<ui:composition template="sample.xhtml">
+
+    <ui:define name="head">
+        <title>WebLab3</title>
+        <link rel="icon" href="#{resource['images:sharingan.png']}"/>
+        <h:outputStylesheet library="styles" name="welcomeStyle.css"/>
+    </ui:define>
+
+    <ui:define name="main">
+        <div class="main">
+            <div class="clock" id="clock"></div>
+            <div class="date" id="date"></div>
+            <h:button type="button" class="btn ind" outcome="goMain" value="GO!"/>
+        </div>
+        <h:outputScript library="scripts" name="welcomeScript.js"/>
+    </ui:define>
+
+</ui:composition>
+</html>
