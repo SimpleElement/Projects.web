@@ -1,0 +1,27 @@
+body {
+    background: url("../images/backAkatsuki.jpg");
+}
+
+caption {
+    color: #ff6900;
+    font-size: 50px;
+}
+
+table {
+    border: 1px solid grey;
+    width: 100%;
+}
+
+th {
+    font-size: 200%;
+    background-color: #ffffff;
+    color: black;
+    border: 1px solid #ff6900;
+}
+
+td {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #ff6900;
+    text-align: center;
+}

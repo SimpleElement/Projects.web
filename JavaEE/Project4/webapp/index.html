@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WebLab4</title>
+    <link rel="stylesheet" href="assets/css/indexStyle.css">
+    <link rel="shortcut icon" href="assets/images/rinnegan.png">
+    <script>
+        if (sessionStorage.getItem("username") == null) {
+            window.location.href = "http://" + window.location.hostname + ":" + window.location.port + "/WebLab4" + "/auth.html";
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div class="app">
+    <div class="input__zone">
+        <header class="input__heading">Проверка попадания точки в ограниченную область</header>
+        <fieldset class="input">
+            <legend class="x_input__table" :style="xBorderColor">Выберете координату X:</legend>
+            <div class="x_div">
+                <button v-on:click="xButtonClick" :style="x1ButtonColor" class="x_button" id="x1" name="x" value="-4">-4</button>
+                <button v-on:click="xButtonClick" :style="x2ButtonColor" class="x_button" id="x2" name="x" value="-3">-3</button>
+                <button v-on:click="xButtonClick" :style="x3ButtonColor" class="x_button" id="x3" name="x" value="-2">-2</button>
+                <button v-on:click="xButtonClick" :style="x4ButtonColor" class="x_button" id="x4" name="x" value="-1">-1</button>
+                <button v-on:click="xButtonClick" :style="x5ButtonColor" class="x_button" id="x5" name="x" value="0">0</button>
+                <button v-on:click="xButtonClick" :style="x6ButtonColor" class="x_button" id="x6" name="x" value="1">1</button>
+                <button v-on:click="xButtonClick" :style="x7ButtonColor" class="x_button" id="x7" name="x" value="2">2</button>
+                <button v-on:click="xButtonClick" :style="x8ButtonColor" class="x_button" id="x8" name="x" value="3">3</button>
+                <button v-on:click="xButtonClick" :style="x9ButtonColor" class="x_button" id="x9" name="x" value="4">4</button>
+            </div>
+        </fieldset>
+
+        <fieldset class="input">
+            <legend class="y_input__table" :style="yBorderColor">Введите координату Y:</legend>
+            <div class="y_div">
+                > <input v-model:value="yVal" v-on:keyup="yInputKeyUp" type="text" name="y" placeholder=""> [-3 .. 3]
+            </div>
+        </fieldset>
+
+        <fieldset class="input">
+            <legend class="r_input__table" :style="rBorderColor">Выберете параметр R:</legend>
+            <div class="r_div">
+                <button v-on:click="rButtonClick" :style="r1ButtonColor" class="r_button" id="r1" name="r" value="-4">-4</button>
+                <button v-on:click="rButtonClick" :style="r2ButtonColor" class="r_button" id="r2" name="r" value="-3">-3</button>
+                <button v-on:click="rButtonClick" :style="r3ButtonColor" class="r_button" id="r3" name="r" value="-2">-2</button>
+                <button v-on:click="rButtonClick" :style="r4ButtonColor" class="r_button" id="r4" name="r" value="-1">-1</button>
+                <button v-on:click="rButtonClick" :style="r5ButtonColor" class="r_button" id="r5" name="r" value="0">0</button>
+                <button v-on:click="rButtonClick" :style="r6ButtonColor" class="r_button" id="r6" name="r" value="1">1</button>
+                <button v-on:click="rButtonClick" :style="r7ButtonColor" class="r_button" id="r7" name="r" value="2">2</button>
+                <button v-on:click="rButtonClick" :style="r8ButtonColor" class="r_button" id="r8" name="r" value="3">3</button>
+                <button v-on:click="rButtonClick" :style="r9ButtonColor" class="r_button" id="r9" name="r" value="4">4</button>
+            </div>
+        </fieldset>
+
+        <div class="button__cfg">
+            <button v-on:click="submitClick" type="button" class="btn submit">отправить</button>
+            <button v-on:click="clearClick" type="button" class="btn clear">отчистить</button>
+            <button v-on:click="exitClick" type="button" class="btn exit">выйти</button>
+        </div>
+
+        <img class="eyes" src="assets/images/eyes.png">
+    </div>
+
+    <div class="screen__zone">
+        <header class="screen__heading">График</header>
+        <div v-on:click="graphClick" class="graph">
+            <svg class="zone_coordinates" width="450" height="450" xmlns="http://www.w3.org/2000/svg">
+                <!-- Оси координат -->
+                <line x1="0" x2="450" y1="225" y2="225" stroke="black"></line>
+                <line x1="225" x2="225" y1="0" y2="450" stroke="black"></line>
+                <!-- Стрелки к осям -->
+                <polygon points="225,0 220,15 230,15" stroke="black"></polygon>
+                <polygon points="450,225 435,220 435,230" stroke="black"></polygon>
+                <!-- Подписи к осям -->
+                <text x="435" y="215">X</text>
+                <text x="230" y="15">Y</text>
+                <!-- Метки для значений R на оси X -->
+                <line x1="25" x2="25" y1="220" y2="230" stroke="black"></line>
+                <line x1="125" x2="125" y1="220" y2="230" stroke="black"></line>
+                <line x1="325" x2="325" y1="220" y2="230" stroke="black"></line>
+                <line x1="425" x2="425" y1="220" y2="230" stroke="black"></line>
+                <!-- Метки для значений R на оси Y -->
+                <line x1="220" x2="230" y1="25" y2="25" stroke="black"></line>
+                <line x1="220" x2="230" y1="125" y2="125" stroke="black"></line>
+                <line x1="220" x2="230" y1="325" y2="325" stroke="black"></line>
+                <line x1="220" x2="230" y1="425" y2="425" stroke="black"></line>
+                <!-- Значения R на оси X -->
+                <text x="15" y="245">-4</text>
+                <text x="115" y="245">-2</text>
+                <text x="322" y="245">2</text>
+                <text x="420" y="245">4</text>
+                <!-- Значения R на оси Y -->
+                <text x="210" y="31">4</text>
+                <text x="210" y="130">2</text>
+                <text x="205" y="330">-2</text>
+                <text x="205" y="430">-4</text>
+                <!-- Прямоугольник -->
+                <polygon id="1" stroke="#922c44" fill="#922c44" fill-opacity="0.4" :points="rectangle"></polygon>
+                <!-- Треугольник -->
+                <polygon id="2" stroke="#922c44" fill="#922c44" fill-opacity="0.4" :points="triangle"></polygon>
+                <!-- Четверть эллипса -->
+                <path id="3" stroke="#922c44" fill="#922c44" fill-opacity="0.4" :d="semicircle"></path>
+
+                <svg v-for="point in userPoints.slice().reverse()" class="points">
+                    <circle r="3" :cx=" (point.x * 50 + 225) "  :cy=" (225 - point.y * 50 ) "  fill-opacity="1" :fill=" point.hitResult == true ? 'green' : 'red' " stroke="black" visibility="visible"></circle>
+                </svg>
+            </svg>
+        </div>
+    </div>
+
+    <div class="result__zone">
+        <header class="zone__heading">Результат</header>
+        <div class="dataTable">
+            <div class="scroll-table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th width="95px">Result</th>
+                        <th width="20px">X</th>
+                        <th width="20px">Y</th>
+                        <th width="20px">R</th>
+                        <th>UserName</th>
+                    </tr>
+                    </thead>
+                </table>
+                <div class="scroll-table-body">
+                    <table>
+                        <tbody v-for="point in userPoints.slice().reverse()" id="output">
+                            <tr>
+                                <td width="95px"> {{point.hitResult}} </td>
+                                <td width="20px"> {{point.x}} </td>
+                                <td width="20px"> {{point.y}} </td>
+                                <td width="20px"> {{point.r}} </td>
+                                <td> {{point.username}} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="assets/js/indexScript.js"></script>
+<script src="assets/js/indexVueScript.js"></script>
+</html>

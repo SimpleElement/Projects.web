@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WebLab4</title>
+    <link rel="stylesheet" href="assets/css/regStyle.css">
+    <link rel="shortcut icon" href="assets/images/rinnegan.png">
+    <script>
+        if (sessionStorage.getItem("username") != null) {
+            window.location.href = "http://" + window.location.hostname + ":" + window.location.port + "/WebLab4" + "/index.html";
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div class="app">
+    <table>
+        <caption class="student">
+            Студент: Гайдамаков Александр P3212. Вариант: 12060
+        </caption>
+        <tr>
+            <th>Registration</th>
+        </tr>
+        <tr>
+            <td>
+                <p><b>UserName : </b> <input v-model="usernameReg" type="text" id="username" /></p>
+                <p style="margin-left: 10px"><b> Password:</b> <input v-model="password1Reg" type="password" id="password1"/></p>
+                <p style="margin-left: -38px"><b> RepeatPassword:</b> <input v-model="password2Reg" type="password" id="password2"/></p>
+                <input v-on:click="registerClick" style="background-color: orange; border-radius: 5px" type="button" id="register" value="Register"/>
+                <div id="message" style="color: red">{{message}}</div>
+                <hr>
+                <input v-on:click="authorizationClick" style="background-color: orange; border-radius: 5px" type="button" id="authorization" value="Authorization"/>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+<script src="assets/js/regVueScript.js"></script>
+</html>
